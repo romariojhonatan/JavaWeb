@@ -15,12 +15,6 @@ public class Aluno implements Serializable{
 	private int id;
 	
 	private String nome;
-	
-	public Aluno(int id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
 
 	public int getId() {
 		return id;
