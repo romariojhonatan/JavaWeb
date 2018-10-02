@@ -4,8 +4,8 @@
 	<pluginVersion><![CDATA[3.9.5.201807030714-RELEASE]]></pluginVersion>
 	<configs>
 		<config>
-			<file>src/main/resources/templates/aluno/paginaLogin.html.xml</file>
-			<name><![CDATA[paginaLogin.html]]></name>
+			<file>src/main/resources/templates/menu/erro.xml</file>
+			<name><![CDATA[erro]]></name>
 		</config>
 	</configs>
 </webflow-project-description>

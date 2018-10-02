@@ -1,7 +1,6 @@
 package br.com.senac.servico;
 
-import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.senac.dominio.Aluno;
@@ -11,11 +10,15 @@ import br.com.senac.repositorio.AlunoRepositorio;
 public class LoginService {
 
 	
-	private AlunoRepositorio repoAlu;
-	
-	public Aluno buscar(String email, String nome) {
-		Aluno objAluno = repoAlu.findByEmailAndNome(email, nome);
-		return objAluno;
+	@Autowired
+	private AlunoRepositorio repoAluno;
+
+	public boolean login(Aluno aluno) {
+		Aluno alunoLogado = repoAluno.findByEmailAndNome(aluno.getEmail(), aluno.getNome());
+		if (alunoLogado == null) {
+			return false;
+		}
+		return true;
 	}
 	
 }

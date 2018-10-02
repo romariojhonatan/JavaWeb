@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-br">
+	
+	<head>
+		<meta charset="utf-8">
+		<title>Login</title>
+	</head>
+	
+	<body>
+		<tr th:each="cat : ${cursos}">
+			<td th:text="${cat.id}"></td>
+			<td th:text="${cat.nome}"></td>
+			<td th:text="${cat.descricao}"></td>
+			<td th:text="${cat.preco}"></td>
+			<td>
+				<div>
+					<a >Editar</a>
+					<a >Excluir</a>
+				</div>
+			</td>
+		</tr>
+	</body>
+</html>
