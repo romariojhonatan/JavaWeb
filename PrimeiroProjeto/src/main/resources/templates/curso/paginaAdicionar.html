@@ -12,11 +12,12 @@
 			<input th:field="*{nome}" type="text" placeholder="Informe o Nome">	<br/>
 			<input th:field="*{descricao}" type="text" placeholder="Informe a Descrição"> <br/>							
 			<input th:field="*{preco}" type="text" placeholder="Informe o Preço"> <br/>
-			<select th:each="cat : ${curso}">
-				<option th:text="${cat.categorias.nome}"">
-			</select>
+			<select th:field="*{categorias}">
+				<option value="">Selecione a categoria</option>
+				<option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+			</select><br/>
 
-			<button type="submit">Login</button>
+			<button type="submit">Salvar</button>
 								
 		</form>
 	</body>

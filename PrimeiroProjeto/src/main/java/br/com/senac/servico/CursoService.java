@@ -3,6 +3,7 @@ package br.com.senac.servico;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.senac.dominio.Curso;
@@ -11,7 +12,7 @@ import br.com.senac.repositorio.CursoRepositorio;
 
 @Service
 public class CursoService {
-
+	@Autowired
 	private CursoRepositorio cursoRepositorio;
 	
 	public Curso inserir(Curso objCurso) {

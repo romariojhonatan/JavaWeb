@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.senac.dominio.Curso;
+import br.com.senac.servico.CategoriaService;
 import br.com.senac.servico.CursoService;
 
 @Controller
@@ -15,10 +16,14 @@ public class CursoController {
 	@Autowired
 	private CursoService cursoService;
 	
+	@Autowired
+	private CategoriaService categoriaService;
+	
 	@GetMapping("/adicionarCurso")
-	public ModelAndView add(Curso curso) {
+	public ModelAndView add() {
 		ModelAndView mv = new ModelAndView("curso/paginaAdicionar");
-		mv.addObject("curso", curso);
+		mv.addObject("curso", new Curso());
+		mv.addObject("categorias", categoriaService.listaCategorias());
 		return mv;
 	}
 	
