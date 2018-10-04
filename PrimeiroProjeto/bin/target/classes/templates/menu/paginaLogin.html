@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-br">
+	
+	<head>
+		<meta charset="utf-8">
+		<title>Login</title>
+	</head>
+	
+	<body>
+		<form class="form-horizontal" th:object="${aluno}" th:action="@{/validar}" method="POST" style="margin: 10px">
+	
+			<input th:field="*{email}" type="text" class="form-control" placeholder="Informe o E-mail">	<br/>
+			<input th:field="*{nome}" type="text" class="form-control" placeholder="Informe o Nome"> <br/>							
+			
+			<button type="submit" class="btn btn-sm btn-primary">Login</button>
+								
+		</form>
+	</body>
+</html>
