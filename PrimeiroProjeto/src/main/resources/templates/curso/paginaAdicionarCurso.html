@@ -8,29 +8,41 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-	<title>Cadastro de Categorias</title>
+	<title>Cadastro de Curso</title>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="card-header">
-			<strong>Cadastro de Categorias</strong>
+			<strong>Cadastro de Curso</strong>
 		</div>
 		<div class="card-body">
-			<form class="form-horizontal" th:object="${aluno}" th:action="@{/validar}" method="POST" style="margin: 10px">
+			<form class="form-horizontal" th:object="${curso}" th:action="@{/salvarCurso}" method="POST" style="margin: 10px">
 				<div class="form-group">
 					<fieldset>
 						<div class="form-group row">
-							<label>Email</label>
-							<input type="text" class="form-control input-sm" th:field="*{email}" autofocus="autofocus" placeholder="Informe o email" maxlength="50" name=""/>
+							<label>Nome</label>
+							<input class="form-control input-sm" th:field="*{nome}" type="text" placeholder="Informe o Nome" maxlength="50" name=""/>
+						</div>
+						<div class="form-group row">
+							<label>Descrição</label>
+							<input  class="form-control input-sm" th:field="*{descricao}" type="text" placeholder="Informe a Descrição" maxlength="50" name=""/>
+						</div>
+						<div class="form-group row">
+							<label>Preço</label>
+							<input class="form-control input-sm" th:field="*{preco}" type="text" placeholder="Informe o Preço" maxlength="50" name=""/>
 						</div>
 						<div class="form-group row">
 							<label>Nome</label>
-							<input type="text" class="form-control input-sm" th:field="*{nome}" autofocus="autofocus" placeholder="Informe o nome" maxlength="50" name=""/>
+							<select th:field="*{categorias}" class="form-control input-sm">
+								<option value="">Selecione a categoria</option>
+								<option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+							</select>
 						</div>
 					</fieldset>
 				</div>
 				<div align="center">
-					<button type="submit" class="btn btn-sm btn-primary">Logar</button>
+					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+					<a th:href="@{/listarCategorias}" class="btn btn-sm btn-default">Cancelar</a>
 				</div>
 			</form>
 		</div>
@@ -42,5 +54,3 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
-</html>
-		

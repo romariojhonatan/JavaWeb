@@ -30,7 +30,7 @@ import br.com.senac.repositorio.PagamentoRepositorio;
 import br.com.senac.repositorio.PedidoRepositorio;
 
 @Component
-public class Init implements ApplicationListener<ContextRefreshedEvent> {
+public class init implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Autowired
 	AlunoRepositorio alunoRepositorio;

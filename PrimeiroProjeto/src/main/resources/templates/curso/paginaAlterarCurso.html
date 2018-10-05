@@ -8,29 +8,38 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-	<title>Cadastro de Categorias</title>
+	<title>Alterar Curso</title>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="card-header">
-			<strong>Cadastro de Categorias</strong>
+			<strong>Alterar curso</strong>
 		</div>
 		<div class="card-body">
-			<form class="form-horizontal" th:object="${aluno}" th:action="@{/validar}" method="POST" style="margin: 10px">
+			<form class="form-horizontal" th:object="${curso}" th:action="@{/alterarCurso}" method="RequestMethod.POST" style="margin: 10px">
 				<div class="form-group">
 					<fieldset>
 						<div class="form-group row">
-							<label>Email</label>
-							<input type="text" class="form-control input-sm" th:field="*{email}" autofocus="autofocus" placeholder="Informe o email" maxlength="50" name=""/>
+							<label>ID</label>
+							<input type="text" class="form-control input-sm" id="id" th:field="*{id}" readonly="readonly">
 						</div>
 						<div class="form-group row">
 							<label>Nome</label>
-							<input type="text" class="form-control input-sm" th:field="*{nome}" autofocus="autofocus" placeholder="Informe o nome" maxlength="50" name=""/>
+							<input type="text" class="form-control input-sm" th:field="*{nome}" autofocus="autofocus" placeholder="Informe o nome" maxlength="50">
+						</div>
+						<div class="form-group row">
+							<label>Descrição</label>
+							<input type="text" class="form-control input-sm" th:field="*{descricao}" autofocus="autofocus" placeholder="Informe o descrição" maxlength="50">
+						</div>
+						<div class="form-group row">
+							<label>Preço</label>
+							<input type="text" class="form-control input-sm" th:field="*{preco}" autofocus="autofocus" placeholder="Informe o preço" maxlength="50">
 						</div>
 					</fieldset>
 				</div>
 				<div align="center">
-					<button type="submit" class="btn btn-sm btn-primary">Logar</button>
+					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+					<a th:href="@{/listarCurso}" class="btn btn-sm btn-default">Cancelar</a>
 				</div>
 			</form>
 		</div>
@@ -43,4 +52,3 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
-		

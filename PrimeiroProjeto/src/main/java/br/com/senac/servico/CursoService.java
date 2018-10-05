@@ -30,4 +30,17 @@ public class CursoService {
 		return objCurso.orElseThrow(() -> new ObjectNotFoundException(
 				"Curso não encontrada! id: "+ id +"tipo: "+ Curso.class.getName()));
 	}
+
+	public void excluir(Integer id) {
+		cursoRepositorio.deleteById(id);
+	}
+
+	public Curso alterar(Curso objCurso) {
+		Curso objCursoEncontrado = buscar(objCurso.getId());
+		objCursoEncontrado.setNome(objCurso.getNome());
+		objCursoEncontrado.setDescricao(objCurso.getDescricao());
+		objCursoEncontrado.setPreco(objCurso.getPreco());
+		//objCursoEncontrado.setCategorias(objCurso.getCategorias);
+		return cursoRepositorio.save(objCursoEncontrado);
+	}
 }
