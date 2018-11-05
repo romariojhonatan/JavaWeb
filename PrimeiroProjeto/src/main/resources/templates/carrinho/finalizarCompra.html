@@ -10,42 +10,56 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	 crossorigin="anonymous">
 
-	<title>Categorias</title>
+	<title>Finalizar Compra</title>
 </head>
 
 <body>
 	<div class="container-fluid">
-		<div class="card-header"><strong>Categorias</strong></div>
+		<div class="card-header">
+			<strong>Finalizar Compra</strong>
+		</div>
 		<div class="card-body">
-			<div th:if="${categorias.isEmpty()}">
-				<h1 class="text-center">Nenhum registro encontrado!</h1>
+			<div th:if="${session.cart.isEmpty()}">
+				<h1 class="text-center">Nenhum item no carrinho!</h1>
 			</div>
-			<div th:unless="${categorias.isEmpty()}" class="table-responsive">
+			<div th:unless="${session.cart.isEmpty()}" class="table-responsive">
 				<table class="table table-sm table-striped table-hover table-bordered">
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Categoria</th>
-							<th></th>
+							<th>Nome</th>
+							<th>Preço</th>
+							<th>Quantidade</th>
+							<th>Método de Pagamento</th>
+							<th>Subtotal</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cat : ${categorias}">
-							<td th:text="${cat.id}"></td>
-							<td th:text="${cat.nome}"></td>
-							<td>
-								<div class="btn-group float-right">
-									<a class="btn btn-sm btn-primary" th:href="@{/alterarCategoria/{id}(id=${cat.id})}">Editar</a> <a class="delete btn btn-sm btn-danger"
-									 th:href="@{/excluir/{id}(id=${cat.id})}">Excluir</a>
-								</div>
-							</td>
+						<tr th:each="item : ${session.cart}">
+							<td th:text="${item.curso.id}"></td>
+							<td th:text="${item.curso.nome}"></td>
+							<td th:text="${item.curso.preco}"></td>
+							<td th:text="${item.quantidade}"></td>
+							<td th:text="${item.curso.preco}"></td>
+							<td th:text="${item.quantidade * item.curso.preco}"></td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td class="border-0"></td>
+							<td class="border-0"></td>
+							<td class="border-0"></td>
+							<td class="border-0"></td>
+							<td class="border-0 float-right text-danger">Total</td>
+							<td>??????</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="card-footer">
-			<a class="btn btn-sm btn-success" th:href="@{/adicionar/}">Adicionar</a>
+			<a class="btn btn-sm btn-success" th:href="@{/index/}">Continuar comprando</a>
+			<a class="btn btn-sm btn-primary float-right" th:href="@{/finalizarCompra/}">Finalizar a compra</a>
 		</div>
 	</div>
 

@@ -12,35 +12,39 @@ import br.com.senac.repositorio.CursoRepositorio;
 
 @Service
 public class CursoService {
+	
 	@Autowired
-	private CursoRepositorio cursoRepositorio;
+	CursoRepositorio repoCurso;
+	
+	@Autowired
+	CursoService cursoService;
+
+	public List<Curso> listaCursos() {
+		return repoCurso.findAll();
+	}
 	
 	public Curso inserir(Curso objCurso) {
-		// estou colocando um objeto novo entao o id precisa ser null
 		objCurso.setId(null);
-		return cursoRepositorio.save(objCurso);
-	}
-
-	public List<Curso> listar() {
-		return cursoRepositorio.findAll();
+		return repoCurso.save(objCurso);
 	}
 	
 	public Curso buscar(Integer id) {
-		Optional<Curso> objCurso = cursoRepositorio.findById(id);
+		Optional<Curso> objCurso = repoCurso.findById(id);
 		return objCurso.orElseThrow(() -> new ObjectNotFoundException(
-				"Curso não encontrada! id: "+ id +"tipo: "+ Curso.class.getName()));
+				"Curso não encontrado! Id: " + id + ", Tipo: " + Curso.class.getName()));
 	}
-
-	public void excluir(Integer id) {
-		cursoRepositorio.deleteById(id);
-	}
-
+	
 	public Curso alterar(Curso objCurso) {
 		Curso objCursoEncontrado = buscar(objCurso.getId());
 		objCursoEncontrado.setNome(objCurso.getNome());
 		objCursoEncontrado.setDescricao(objCurso.getDescricao());
 		objCursoEncontrado.setPreco(objCurso.getPreco());
-		//objCursoEncontrado.setCategorias(objCurso.getCategorias);
-		return cursoRepositorio.save(objCursoEncontrado);
+		objCursoEncontrado.setCategorias(objCurso.getCategorias());
+		return repoCurso.save(objCursoEncontrado);
 	}
+
+	public void excluir(Integer id) {
+		repoCurso.deleteById(id);
+	}
+
 }

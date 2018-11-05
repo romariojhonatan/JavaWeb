@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Aluno implements Serializable {
 
@@ -37,6 +39,7 @@ public class Aluno implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonIgnore // o Aluno não precisa saber que é o pedido para o json. Isso já vai acontecer na classe Pedido.
 	@OneToMany(mappedBy="aluno")
 	private List<Pedido> pedidos = new ArrayList<>();
 

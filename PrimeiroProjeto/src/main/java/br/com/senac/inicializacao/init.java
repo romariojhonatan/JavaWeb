@@ -3,7 +3,9 @@ package br.com.senac.inicializacao;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -16,6 +18,7 @@ import br.com.senac.dominio.Cidade;
 import br.com.senac.dominio.Curso;
 import br.com.senac.dominio.Endereco;
 import br.com.senac.dominio.Estado;
+import br.com.senac.dominio.ItemPedido;
 import br.com.senac.dominio.Pagamento;
 import br.com.senac.dominio.PagamentoComBoleto;
 import br.com.senac.dominio.Pedido;
@@ -26,11 +29,12 @@ import br.com.senac.repositorio.CidadeRepositorio;
 import br.com.senac.repositorio.CursoRepositorio;
 import br.com.senac.repositorio.EnderecoRepositorio;
 import br.com.senac.repositorio.EstadoRepositorio;
+import br.com.senac.repositorio.ItemPedidoRepositorio;
 import br.com.senac.repositorio.PagamentoRepositorio;
 import br.com.senac.repositorio.PedidoRepositorio;
 
 @Component
-public class init implements ApplicationListener<ContextRefreshedEvent> {
+public class Init implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Autowired
 	AlunoRepositorio alunoRepositorio;
@@ -55,6 +59,9 @@ public class init implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Autowired
 	CategoriaRepositorio categoriaRepositorio;
+	
+	@Autowired
+	ItemPedidoRepositorio itemPedidoRepositorio;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -142,27 +149,60 @@ public class init implements ApplicationListener<ContextRefreshedEvent> {
 
 		Curso c1 = new Curso();
 		Curso c2 = new Curso();
+		Curso c3 = new Curso();
+		Curso c4 = new Curso();
 
 		Categoria cat1 = new Categoria();
 		Categoria cat2 = new Categoria();
+		Categoria cat3 = new Categoria();
+		Categoria cat4 = new Categoria();
 
 		c1.setNome("Java");
 		c2.setNome("HTML");
+		c3.setNome("Python");
+		c4.setNome("C#");
 
 		cat1.setNome("BackEnd");
 		cat2.setNome("FrontEnd");
+		cat3.setNome("Servidor");
+		cat4.setNome("Serviço");
+		
+		c1.setPreco(1000);
+		c2.setPreco(200);
+		c3.setPreco(800);
+		c4.setPreco(600);
 
 		List<Categoria> categorias = new ArrayList<>();
 		categorias.add(cat1);
 		categorias.add(cat2);
+		categorias.add(cat3);
+		categorias.add(cat4);
 
 		c1.setCategorias(categorias);
 		c2.setCategorias(categorias);
+		c3.setCategorias(categorias);
+		c4.setCategorias(categorias);
 
-		cursoRepositorio.saveAll(Arrays.asList(c1, c2));
+		cursoRepositorio.saveAll(Arrays.asList(c1, c2, c3, c4));
 
-		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepositorio.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
+		
+		// criando os itens
+		ItemPedido item1 = new ItemPedido(ped1, c1, 0.00, 1, 200.00);
+		ItemPedido item2 = new ItemPedido(ped1, c2, 10.00, 1, 390.00);
+		
+		// criando a lista de itens para um pedido
+		Set<ItemPedido> listaItens1 = new HashSet<>();
+		listaItens1.add(item1);
+		listaItens1.add(item2);
+		ped1.setItens(listaItens1);
+		
+		// indicando qual lista de itens o curso está
+		c1.setItens(listaItens1);
+		c2.setItens(listaItens1);
+		
+		itemPedidoRepositorio.saveAll(Arrays.asList(item1, item2));
 
 	}
-
+	
 }

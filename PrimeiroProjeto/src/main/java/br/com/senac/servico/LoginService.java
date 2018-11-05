@@ -8,7 +8,6 @@ import br.com.senac.repositorio.AlunoRepositorio;
 
 @Service
 public class LoginService {
-
 	
 	@Autowired
 	private AlunoRepositorio repoAluno;

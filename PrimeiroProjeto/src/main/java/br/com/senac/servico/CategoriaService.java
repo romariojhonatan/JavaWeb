@@ -12,31 +12,32 @@ import br.com.senac.repositorio.CategoriaRepositorio;
 
 @Service
 public class CategoriaService {
-	
+
 	@Autowired
 	private CategoriaRepositorio repoCat;
-	
+
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> objCategoria = repoCat.findById(id);
-		return objCategoria.orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+		return objCategoria.orElseThrow(() -> new ObjectNotFoundException(
+				"Categoria não encontrada! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public Categoria inserir(Categoria objCategoria) {
 		// estou colocando um objeto novo entao o id precisa ser null
 		objCategoria.setId(null);
 		return repoCat.save(objCategoria);
 	}
-	
-	public Categoria alterar( Categoria objCategoria) {
+
+	public Categoria alterar(Categoria objCategoria) {
 		Categoria objCategoriaEncontrado = buscar(objCategoria.getId());
 		objCategoriaEncontrado.setNome(objCategoria.getNome());
 		return repoCat.save(objCategoriaEncontrado);
 	}
-	
+
 	public void excluir(Integer id) {
 		repoCat.deleteById(id);
 	}
-	
+
 	public List<Categoria> listaCategorias() {
 		return repoCat.findAll();
 	}

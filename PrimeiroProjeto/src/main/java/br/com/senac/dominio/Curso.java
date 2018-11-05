@@ -1,8 +1,11 @@
 package br.com.senac.dominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Curso implements Serializable {
@@ -27,11 +33,47 @@ public class Curso implements Serializable {
 
 	private String nome;
 	private String descricao;
-	private Double preco;
+	private BigDecimal preco;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "curso_categoria", joinColumns = @JoinColumn(name = "curso_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
+
+	public Curso(Integer id, String nome, String descricao, BigDecimal preco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+	}
+	
+	public Curso() {
+		super();
+	}
+
+	@JsonIgnore
+	@OneToMany(mappedBy="id.curso")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
+	// para saber os pedidos do produto
+	@JsonIgnore
+	private List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido i : itens) {
+			lista.add(i.getPedido());
+		}
+		return lista;
+	}
+	
+	@JsonIgnore
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	public Integer getId() {
 		return id;
@@ -57,12 +99,15 @@ public class Curso implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public double getPreco() {
+		if (this.preco == null) {
+			return new BigDecimal(0).doubleValue();
+		}
+		return preco.doubleValue();
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco(double preco) {
+		this.preco = new BigDecimal(preco);
 	}
 
 	public List<Categoria> getCategorias() {
